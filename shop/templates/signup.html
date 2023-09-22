@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Đăng ký{% endblock %}
+
+{% block body %}
+
+<div class="container" style="width:600px;">
+    <div class="my-4">
+        <div class="text-center mx-5 px-5">
+            <h1><strong>Đăng ký</strong></h1>
+            <hr style="height:2px; border:none; color:#426cf5; background-color:#426cf5;"/>
+        </div>
+        <div class="mx-5 px-5">
+            <form id="formRegister" action="/signup/" method="POST">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <script>
+                                $('.alert').alert()
+                            </script>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-12 font-weight-bold">
+                        <label for="email" class="mb-0">Nhập Email</label>
+                        <input type="email" class="form-control" name="email" value="{{email}}" placeholder="E-mail" required> </div>
+                    <div class="form-group col-md-6 font-weight-bold">
+                        <label for="fname" class="mb-0">Nhập Họ</label>
+                        <input type="text" class="form-control" name="fname" value="{{fname}}" placeholder="Họ" required> </div>
+                    <div class="form-group col-md-6 font-weight-bold">
+                        <label for="lname" class="mb-0">Nhập Tên</label>
+                        <input type="text" class="form-control" name="lname" value="{{lname}}" placeholder="Tên" required> </div>
+                    <div class="form-group col-md-12 font-weight-bold">
+                        <label for="phone" class="mb-0">Nhập số diện thoại</label>
+                        <input type="tel" class="form-control" name="phone" value="{{phone}}" placeholder="Điện thoại" required> </div>
+                    <div class="form-group col-md-12 font-weight-bold">
+                        <label for="pass1" class="mb-0">Mật khẩu</label>
+                        <input type="password" class="form-control" name="pass1" placeholder="Password" required> </div>
+                    <div class="form-group col-md-12 font-weight-bold">
+                        <label for="pass2" class="mb-0">Nhập lại mật khẩu</label>
+                        <input type="password" class="form-control" name="pass2" placeholder="Password" required> </div>
+                    <div class="form-group col-md-12">
+                        <input class="mb-0" type="checkbox" value="" id="tnc" required>
+                        <label class="mb-0" for="tnc">
+                            Tôi chấp nhận điều khoản và dịch vụ
+                        </label> </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button type="submit" class="btn hvr-hover col-lg-4" style="color:white;">Tạo tài khoản</button>
+                </div>
+            </form>
+        </div>
+        <div class="text-center mt-2">
+            <p><strong>Hoặc</strong></p>
+        </div>
+        <div class="text-center mt-2">
+            <a href="/login" class="btn hvr-hover col-lg-6" style="color:white;">Đã có tài khoản? Đăng nhập ngay</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Checkout 
+{% endblock %}
+
+{% block body %}
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 mb-3">
+                <div class="odr-box">
+                    <div class="title-left">
+                        <h3>Giỏ hàng</h3>
+                    </div>
+                    <div class="rounded p-2 bg-light">
+                        {% for cart in carts %}
+                        <div class="media mb-2 border-bottom">
+                            <div class="media-body"> <a href="/productdetail/{{cart.product_id}}"> {{cart.product.product_name}}</a>
+                                <div class="small text-muted">Giá: {{cart.price|floatformat:2|intcomma}} đ <span class="mx-2">|</span> Qty: {{cart.qty}} <span class="mx-2">|</span> Tổng:  {{cart.amount|floatformat:2|intcomma}}đ</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 mb-3">
+                <div class="odr-box">
+                    <div class="title-left mb-4">
+                        <h3>Đơn hàng của bạn</h3>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Tổng sản phẩm</h4>
+                        <div class="ml-auto font-weight-bold"> {{total|floatformat:2|intcomma}}đ</div>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Giảm giá</h4>
+                        <div class="ml-auto font-weight-bold"> {{discount|floatformat:2|intcomma}}đ</div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="d-flex">
+                        <h4>Giá ship</h4>
+                        <div class="ml-auto font-weight-bold"> Free </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex gr-total">
+                        <h5>Tổng</h5>
+                        <div class="ml-auto h5"> {{grand_total|floatformat:2|intcomma}}đ</div>
+                    </div>
+                    <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="checkout-address">
+                        <div class="title-left">
+                            <h3>Địa chỉ thanh toán</h3>
+                        </div>
+                        <form class="needs-validation" action='/checkout/' method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstname">Họ *</label>
+                                    <input type="text" class="form-control" name="firstname" value="{{myuser.first_name}}" placeholder="" value="" required>
+                                    <div class="invalid-feedback"> Không hợp lệ. </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastname">Tên *</label>
+                                    <input type="text" class="form-control" name="lastname" value="{{myuser.last_name}}" placeholder="" value="" required>
+                                    <div class="invalid-feedback"> Không hợp lệ. </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone">Số diện thoại. *</label>
+                                <div class="input-group">
+                                    <input type="tel" class="form-control" name="phone" value="{{customer.phone}}" placeholder="" required>
+                                    <div class="invalid-feedback" style="width: 100%;"> Cần tên tài khoản. </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="house_no">Số nhà *</label>
+                                <input type="text" class="form-control" name="house_no" placeholder="" required>
+                                <div class="invalid-feedback"> Nhập số nhà. </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="street">Đường *</label>
+                                <input type="text" class="form-control" name="street" placeholder="" required> </div>
+                            <div class="row">
+                                <div class="col-md-5 mb-3">
+                                    <label for="state">Tỉnh *</label>
+                                    <input class="form-control wide w-100" name="state" placeholder="" required>
+                                    <div class="invalid-feedback"> nhập Tỉnh. </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="city">Thành phố *</label>
+                                    <input class="form-control wide w-100" name="city" placeholder="" required>
+                                    <div class="invalid-feedback"> nhập thành phố. </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="pin">Mã bưu chính *</label>
+                                    <input type="tel" class="form-control" name="pin" placeholder="" required>
+                                    <div class="invalid-feedback"> Nhập mã bưu chính. </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="shipping-method-box">
+                                <div class="title-left">
+                                    <h3>Thanh toán</h3>
+                                </div>
+                                <div class="mb-4">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shopping-box text-center"> <button type="submit" class="ml-auto btn hvr-hover" style="color:white">Đặt hàng</button> </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
